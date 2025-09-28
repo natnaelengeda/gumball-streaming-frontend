@@ -9,6 +9,7 @@ import { ThumbsUp, ThumbsDown, Clock, ArrowLeft, Send, User } from "lucide-react
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
+import Footer from "@/components/footer"
 
 // Mock data for episodes (same as home page)
 const episodes = [
@@ -301,10 +302,10 @@ export default function EpisodePage() {
 
   if (!episode) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-black flex items-center justify-center">
-        <Card className="bg-white/10 border-white/20 text-white">
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-black">
+        <Card className="text-white bg-white/10 border-white/20">
           <CardContent className="p-8 text-center">
-            <h2 className="text-2xl font-bold mb-4">Episode Not Found</h2>
+            <h2 className="mb-4 text-2xl font-bold">Episode Not Found</h2>
             <p className="mb-4">The episode you're looking for doesn't exist.</p>
             <Link href="/">
               <Button className="bg-purple-600 hover:bg-purple-700">
@@ -321,10 +322,10 @@ export default function EpisodePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-black">
       {/* Header */}
-      <header className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
+      <header className="px-4 border-b border-white/10 bg-black/20 backdrop-blur-sm md:px-20">
+        <div className="container px-4 py-4 mx-auto">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 text-white hover:text-purple-300 transition-colors">
+            <Link href="/" className="flex items-center gap-2 text-white transition-colors hover:text-purple-300">
               <ArrowLeft className="w-5 h-5" />
               <span className="font-semibold">Back to Episodes</span>
             </Link>
@@ -333,25 +334,31 @@ export default function EpisodePage() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container px-4 py-8 mx-auto md:px-20">
         {/* Video Player Section */}
         <div className="mb-8">
-          <div className="relative aspect-video rounded-xl overflow-hidden bg-black shadow-2xl mb-4">
-            <video className="w-full h-full" controls preload="metadata" poster={episode.thumbnail}>
-              <source src={episode.videoUrl} type="video/mp4" />
+          <div className="relative mb-4 overflow-hidden bg-black shadow-2xl aspect-video rounded-xl">
+            <video
+              className="w-full h-full"
+              controls
+              preload="metadata"
+              poster={episode.thumbnail}>
+              <source
+                src={episode.videoUrl}
+                type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-white mb-2">{episode.title}</h1>
+              <h1 className="mb-2 text-3xl font-bold text-white">{episode.title}</h1>
               <div className="flex items-center gap-4">
-                <Badge variant="secondary" className="bg-purple-600 text-white">
+                <Badge variant="secondary" className="text-white bg-purple-600">
                   <Clock className="w-3 h-3 mr-1" />
                   {episode.duration}
                 </Badge>
-                <Badge variant="outline" className="border-white/30 text-white">
+                <Badge variant="outline" className="text-white border-white/30">
                   Episode {episode.id}
                 </Badge>
               </div>
@@ -363,24 +370,23 @@ export default function EpisodePage() {
                 variant={userVote === "like" ? "default" : "outline"}
                 size="sm"
                 onClick={handleLike}
-                className={`${
-                  userVote === "like"
-                    ? "bg-green-600 hover:bg-green-700 text-white"
-                    : "border-white/30 text-white hover:bg-white/10"
-                }`}
+                className={`${userVote === "like"
+                  ? "bg-green-600 hover:bg-green-700 text-white"
+                  : "border-white/30 text-white hover:bg-white/10"
+                  } bg-transparent border cursor-pointer`}
               >
-                <ThumbsUp className="w-4 h-4 mr-1" />
+                <ThumbsUp
+                  className="w-4 h-4 mr-1 text-white" />
                 {likes}
               </Button>
               <Button
                 variant={userVote === "dislike" ? "default" : "outline"}
                 size="sm"
                 onClick={handleDislike}
-                className={`${
-                  userVote === "dislike"
-                    ? "bg-red-600 hover:bg-red-700 text-white"
-                    : "border-white/30 text-white hover:bg-white/10"
-                }`}
+                className={`${userVote === "dislike"
+                  ? "bg-red-600 hover:bg-red-700 text-white"
+                  : "border-white/30 text-white hover:bg-white/10"
+                  } bg-transparent border cursor-pointer`}
               >
                 <ThumbsDown className="w-4 h-4 mr-1" />
                 {dislikes}
@@ -390,30 +396,30 @@ export default function EpisodePage() {
         </div>
 
         {/* Episode Description */}
-        <Card className="bg-white/10 border-white/20 text-white mb-8">
+        <Card className="mb-8 text-white bg-white/10 border-white/20">
           <CardHeader>
             <CardTitle>Episode Description</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-white/90 leading-relaxed">{episode.fullDescription || episode.description}</p>
+            <p className="leading-relaxed text-white/90">{episode.fullDescription || episode.description}</p>
           </CardContent>
         </Card>
 
         {/* Comments Section */}
-        <Card className="bg-white/10 border-white/20 text-white">
+        <Card className="text-white bg-white/10 border-white/20">
           <CardHeader>
             <CardTitle>Comments ({comments.length})</CardTitle>
             <CardDescription className="text-white/70">Share your thoughts about this episode</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Add Comment Form */}
-            <div className="space-y-4 p-4 bg-white/5 rounded-lg">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="p-4 space-y-4 rounded-lg bg-white/5">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Input
                   placeholder="Your name"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50"
+                  className="text-white bg-white/10 border-white/20 placeholder:text-white/50"
                 />
               </div>
               <Textarea
@@ -435,14 +441,14 @@ export default function EpisodePage() {
             {/* Comments List */}
             <div className="space-y-4">
               {comments.length === 0 ? (
-                <p className="text-white/70 text-center py-8">No comments yet. Be the first to share your thoughts!</p>
+                <p className="py-8 text-center text-white/70">No comments yet. Be the first to share your thoughts!</p>
               ) : (
                 comments.map((comment) => (
-                  <div key={comment.id} className="p-4 bg-white/5 rounded-lg">
+                  <div key={comment.id} className="p-4 rounded-lg bg-white/5">
                     <div className="flex items-center gap-2 mb-2">
                       <User className="w-4 h-4 text-white/70" />
                       <span className="font-semibold text-white">{comment.name}</span>
-                      <span className="text-white/50 text-sm">{comment.timestamp}</span>
+                      <span className="text-sm text-white/50">{comment.timestamp}</span>
                     </div>
                     <p className="text-white/90">{comment.content}</p>
                   </div>
@@ -452,6 +458,7 @@ export default function EpisodePage() {
           </CardContent>
         </Card>
       </div>
+      <Footer />
     </div>
   )
 }

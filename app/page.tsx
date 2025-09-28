@@ -1,9 +1,13 @@
+"use client";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Play, Clock, Star } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import Header from "@/components/header"
+import { useRouter } from "next/navigation"
+import Footer from "@/components/footer";
 
 // Mock data for episodes
 const episodes = [
@@ -173,220 +177,124 @@ const customNotes = [
 ]
 
 export default function HomePage() {
+  const router = useRouter();
   const featuredEpisode = episodes.find((ep) => ep.featured) || episodes[0]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-black">
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-black ">
       {/* Header */}
-      <header className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-white">Gumball Stream</h1>
-            <Badge variant="secondary" className="bg-purple-600 text-white">
-              20 Episodes
-            </Badge>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
+      <section className="container px-4 py-8 pt-24 mx-auto md:px-20">
+        <div className="grid items-start gap-8 lg:grid-cols-2">
           {/* Featured Video Player */}
           <div className="space-y-4">
-            <div className="relative aspect-video rounded-xl overflow-hidden bg-black shadow-2xl">
+            <div className="relative overflow-hidden bg-black shadow-2xl aspect-video rounded-xl">
               <Image
-                src={featuredEpisode.thumbnail || "/placeholder.svg"}
+                src={"https://i.ytimg.com/vi/tUObi_AWYWY/maxresdefault.jpg"}
                 alt={featuredEpisode.title}
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <Button size="lg" className="bg-white/20 hover:bg-white/30 text-white border-white/30">
+              <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                <Button
+                  size="lg"
+                  className="text-white cursor-pointer bg-white/20 hover:bg-white/30 border-white/30">
                   <Play className="w-6 h-6 mr-2" />
                   Watch Featured Episode
                 </Button>
               </div>
               <div className="absolute bottom-4 left-4 right-4">
-                <h3 className="text-white text-xl font-bold mb-2">{featuredEpisode.title}</h3>
-                <p className="text-white/80 text-sm">{featuredEpisode.description}</p>
+                <h3 className="mb-2 text-xl font-bold text-white">The Wonderfully Weird World of Gumball</h3>
+                <p className="text-sm text-white/80">New Season Trailer</p>
               </div>
             </div>
           </div>
 
           {/* Show Notes Panel */}
-          <Card className="h-full bg-white/10 border-white/20 text-white backdrop-blur-sm">
+          <Card className="h-full text-white bg-white/10 border-white/20 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Star className="w-5 h-5 text-yellow-400" />
                 About The Amazing World of Gumball
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4 flex flex-col items-center justify-between">
-             <div className="space-y-4">
-              <p className="text-white/90">
-                Follow the misadventures of Gumball Watterson, a twelve-year-old cat, and his best friend Darwin, a
-                goldfish, as they navigate the surreal world of Elmore.
-              </p>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-white/70">Total Episodes:</span>
-                  <span className="text-white font-semibold">20</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white/70">Genre:</span>
-                  <span className="text-white font-semibold">Comedy, Animation</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white/70">Rating:</span>
-                  <span className="text-white font-semibold">★★★★★</span>
+            <CardContent
+              className="flex flex-col items-center justify-between h-full space-y-4">
+              <div className="space-y-4">
+                <p className="text-white/90">
+                  A 12-year-old cat, Gumball Watterson, stays in Elmore and has a penchant for getting into trouble along with his best friend, a fish named Darwin.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-white/70">Total Episodes:</span>
+                    <span className="font-semibold text-white">20</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-white/70">Genre:</span>
+                    <span className="font-semibold text-white">Comedy, Animation</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-white/70">Rating:</span>
+                    <span className="font-semibold text-white">★★★★★</span>
+                  </div>
                 </div>
               </div>
-             </div>
-              <Button className="w-full bg-purple-600 hover:bg-purple-700">Start Watching</Button>
+              <Button
+                onClick={() => {
+                  router.push("/episode/1")
+                }}
+                className="w-full bg-purple-600 cursor-pointer hover:bg-purple-700">
+                Start Watching
+              </Button>
             </CardContent>
           </Card>
         </div>
       </section>
 
       {/* Episodes Grid */}
-      <section className="container mx-auto px-4 py-8">
-        <h2 className="text-3xl font-bold text-white mb-8">All Episodes</h2>
+      <section className="container px-4 py-8 mx-auto md:px-20">
+        <h2 className="mb-8 text-3xl font-bold text-white">All Episodes</h2>
 
         <div className="space-y-8">
           {/* First batch of episodes */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {episodes.slice(0, 6).map((episode) => (
               <Link key={episode.id} href={`/episode/${episode.id}`}>
-                <Card className="bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 cursor-pointer group pt-0">
-                  <div className="relative aspect-video overflow-hidden rounded-t-lg">
+                <Card className="pt-0 transition-all duration-300 cursor-pointer bg-white/10 border-white/20 hover:bg-white/20 hover:scale-105 group">
+                  <div className="relative overflow-hidden rounded-t-lg aspect-video">
                     <Image
                       src={episode.thumbnail || "/placeholder.svg"}
                       alt={episode.title}
                       fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                      <Play className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute inset-0 flex items-center justify-center transition-colors duration-300 bg-black/0 group-hover:bg-black/30">
+                      <Play className="w-8 h-8 text-white transition-opacity duration-300 opacity-0 group-hover:opacity-100" />
                     </div>
                     <div className="absolute top-2 right-2">
-                      <Badge variant="secondary" className="bg-black/60 text-white text-xs">
+                      <Badge variant="secondary" className="text-xs text-white bg-black/60">
                         <Clock className="w-3 h-3 mr-1" />
                         {episode.duration}
                       </Badge>
                     </div>
                   </div>
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-white text-lg">{episode.title}</CardTitle>
+                    <CardTitle className="text-lg text-white">{episode.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <CardDescription className="text-white/70 text-sm">{episode.description}</CardDescription>
+                    <CardDescription className="text-sm text-white/70">{episode.description}</CardDescription>
                   </CardContent>
                 </Card>
               </Link>
             ))}
           </div>
-
-          {/* Custom Note 1 */}
-          <Card className="bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-purple-400/30">
-            <CardContent className="p-6">
-              <h3 className="text-white font-bold text-lg mb-2">{customNotes[0].title}</h3>
-              <p className="text-white/90">{customNotes[0].content}</p>
-            </CardContent>
-          </Card>
-
-          {/* Second batch of episodes */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {episodes.slice(6, 12).map((episode) => (
-              <Link key={episode.id} href={`/episode/${episode.id}`}>
-                <Card className="bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 cursor-pointer group">
-                  <div className="relative aspect-video overflow-hidden rounded-t-lg">
-                    <Image
-                      src={episode.thumbnail || "/placeholder.svg"}
-                      alt={episode.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                      <Play className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    <div className="absolute top-2 right-2">
-                      <Badge variant="secondary" className="bg-black/60 text-white text-xs">
-                        <Clock className="w-3 h-3 mr-1" />
-                        {episode.duration}
-                      </Badge>
-                    </div>
-                  </div>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-white text-lg">{episode.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-white/70 text-sm">{episode.description}</CardDescription>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-
-          {/* Custom Note 2 */}
-          <Card className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border-blue-400/30">
-            <CardContent className="p-6">
-              <h3 className="text-white font-bold text-lg mb-2">{customNotes[1].title}</h3>
-              <p className="text-white/90">{customNotes[1].content}</p>
-            </CardContent>
-          </Card>
-
-          {/* Third batch of episodes */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {episodes.slice(12, 20).map((episode) => (
-              <Link key={episode.id} href={`/episode/${episode.id}`}>
-                <Card className="bg-white/10 border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 cursor-pointer group">
-                  <div className="relative aspect-video overflow-hidden rounded-t-lg">
-                    <Image
-                      src={episode.thumbnail || "/placeholder.svg"}
-                      alt={episode.title}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                      <Play className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    <div className="absolute top-2 right-2">
-                      <Badge variant="secondary" className="bg-black/60 text-white text-xs">
-                        <Clock className="w-3 h-3 mr-1" />
-                        {episode.duration}
-                      </Badge>
-                    </div>
-                  </div>
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-white text-lg">{episode.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-white/70 text-sm">{episode.description}</CardDescription>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-
-          {/* Custom Note 3 */}
-          <Card className="bg-gradient-to-r from-green-600/20 to-emerald-600/20 border-green-400/30">
-            <CardContent className="p-6">
-              <h3 className="text-white font-bold text-lg mb-2">{customNotes[2].title}</h3>
-              <p className="text-white/90">{customNotes[2].content}</p>
-            </CardContent>
-          </Card>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 bg-black/20 backdrop-blur-sm mt-16">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center text-white/70">
-            <p>&copy; 2024 Gumball Stream. All episodes available for streaming.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
