@@ -8,6 +8,7 @@ import Image from "next/image"
 import Header from "@/components/header"
 import { useRouter } from "next/navigation"
 import Footer from "@/components/footer";
+import AppAsset from "@/core/AppAsset"
 
 // Mock data for episodes
 const episodes = [
@@ -183,7 +184,16 @@ export default function HomePage() {
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-black ">
       {/* Header */}
-      <Header />
+      <header className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold text-white">Gumball Stream</h1>
+            <Badge variant="secondary" className="bg-blue-600 text-white">
+              20 Episodes
+            </Badge>
+          </div>
+        </div>
+      </header>
 
       {/* Hero Section */}
       <section className="container px-4 py-8 pt-24 mx-auto md:px-20">
@@ -192,8 +202,8 @@ export default function HomePage() {
           <div className="space-y-4">
             <div className="relative overflow-hidden bg-black shadow-2xl aspect-video rounded-xl">
               <Image
-                src={"https://i.ytimg.com/vi/tUObi_AWYWY/maxresdefault.jpg"}
-                alt={featuredEpisode.title}
+                src={AppAsset.gumballPoter}
+                alt={"Gumball Poster"}
                 fill
                 className="object-cover"
               />
@@ -206,8 +216,8 @@ export default function HomePage() {
                 </Button>
               </div>
               <div className="absolute bottom-4 left-4 right-4">
-                <h3 className="mb-2 text-xl font-bold text-white">The Wonderfully Weird World of Gumball</h3>
-                <p className="text-sm text-white/80">New Season Trailer</p>
+                <h3 className="text-white text-xl font-bold mb-2">The Burger</h3>
+                <p className="text-white/80 text-sm">Find out what the burger bring to their life</p>
               </div>
             </div>
           </div>
@@ -220,11 +230,11 @@ export default function HomePage() {
                 About The Amazing World of Gumball
               </CardTitle>
             </CardHeader>
-            <CardContent
-              className="flex flex-col items-center justify-between h-full space-y-4">
+            <CardContent className="space-y-4 flex flex-col items-center justify-between">
               <div className="space-y-4">
                 <p className="text-white/90">
-                  A 12-year-old cat, Gumball Watterson, stays in Elmore and has a penchant for getting into trouble along with his best friend, a fish named Darwin.
+                  Follow the misadventures of Gumball Watterson, a twelve-year-old cat, and his best friend Darwin, a
+                  goldfish, as they navigate the surreal world of Elmore.
                 </p>
                 <div className="space-y-2">
                   <div className="flex justify-between">
