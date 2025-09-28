@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Play, Clock, Star } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import AppAsset from "@/core/AppAsset"
 
 // Mock data for episodes
 const episodes = [
@@ -182,7 +183,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-white">Gumball Stream</h1>
-            <Badge variant="secondary" className="bg-purple-600 text-white">
+            <Badge variant="secondary" className="bg-blue-600 text-white">
               20 Episodes
             </Badge>
           </div>
@@ -196,8 +197,8 @@ export default function HomePage() {
           <div className="space-y-4">
             <div className="relative aspect-video rounded-xl overflow-hidden bg-black shadow-2xl">
               <Image
-                src={featuredEpisode.thumbnail || "/placeholder.svg"}
-                alt={featuredEpisode.title}
+                src={AppAsset.gumballPoter}
+                alt={"Gumball Poster"}
                 fill
                 className="object-cover"
               />
@@ -208,8 +209,8 @@ export default function HomePage() {
                 </Button>
               </div>
               <div className="absolute bottom-4 left-4 right-4">
-                <h3 className="text-white text-xl font-bold mb-2">{featuredEpisode.title}</h3>
-                <p className="text-white/80 text-sm">{featuredEpisode.description}</p>
+                <h3 className="text-white text-xl font-bold mb-2">The Burger</h3>
+                <p className="text-white/80 text-sm">Find out what the burger bring to their life</p>
               </div>
             </div>
           </div>
@@ -223,27 +224,27 @@ export default function HomePage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 flex flex-col items-center justify-between">
-             <div className="space-y-4">
-              <p className="text-white/90">
-                Follow the misadventures of Gumball Watterson, a twelve-year-old cat, and his best friend Darwin, a
-                goldfish, as they navigate the surreal world of Elmore.
-              </p>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-white/70">Total Episodes:</span>
-                  <span className="text-white font-semibold">20</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white/70">Genre:</span>
-                  <span className="text-white font-semibold">Comedy, Animation</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-white/70">Rating:</span>
-                  <span className="text-white font-semibold">★★★★★</span>
+              <div className="space-y-4">
+                <p className="text-white/90">
+                  Follow the misadventures of Gumball Watterson, a twelve-year-old cat, and his best friend Darwin, a
+                  goldfish, as they navigate the surreal world of Elmore.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-white/70">Total Episodes:</span>
+                    <span className="text-white font-semibold">20</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-white/70">Genre:</span>
+                    <span className="text-white font-semibold">Comedy, Animation</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-white/70">Rating:</span>
+                    <span className="text-white font-semibold">★★★★★</span>
+                  </div>
                 </div>
               </div>
-             </div>
-              <Button className="w-full bg-purple-600 hover:bg-purple-700">Start Watching</Button>
+              <Button className="w-full bg-primary hover:bg-opacity-10">Start Watching</Button>
             </CardContent>
           </Card>
         </div>
